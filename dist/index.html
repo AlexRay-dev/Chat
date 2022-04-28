@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/index.b2625c6b.css">
+  </head>
+  <body>
+    <template id="message_submit">
+      <p class="dialog__message-text"></p>
+      <span class="dialog__message-time"></span>
+    </template>
+    <main class="main">
+      <div class="dialog">
+        <div class="container">
+          <div class="dialog__top">
+            <button class="dialog__btn-settings">Настройки</button>
+            <button class="dialog__btn-exit">Выйти</button>
+          </div>
+          <div class="dialog__message-box">
+            <ul class="dialog__message-list">
+              <li class="dialog__someone_message dialog__message dialog__delivered_message">
+                <p class="dialog__message-text">Собеседник мой: Добрый день!</p>
+                <span class="dialog__message-time">18:45</span>
+              </li>
+              <li class="dialog__personal_message dialog__message dialog__send_message">
+                <p class="dialog__message-text">Я: Добрый день!</p>
+                <span class="dialog__message-time">18:45</span>
+              </li>
+            </ul>
+          </div>
+          <form class="dialog__bottom" onsubmit="return false">
+            <input type="text" class="dialog__message-input" placeholder="сообщение..">
+            <button class="dialog__message-submit">-></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup popup--settings" id="settings">
+        <div class="popup__body">
+          <div class="popup__header">
+            <p class="popup__header-title">Настройки</p>
+            <button class="popup__header-close">
+              <svg class="popup__header-icon" width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="20.7803" y2="-0.5" transform="matrix(0.710506 0.703691 -0.65218 0.758064 1 1)"></line>
+                <line y1="-0.5" x2="20.8155" y2="-0.5" transform="matrix(0.693335 -0.720616 0.670126 0.742247 1.56787 16)"></line>
+              </svg>
+            </button>
+          </div>
+          <p class="popup__text">Имя в чате</p>
+          <div class="popup__wrapper">
+              <div class="popup__bottom-wrapper">
+                  <form class="popup__bottom" onsubmit="return false">
+              <input type="text" class="popup__input" placeholder="Введите имя">
+              <button class="popup__submit" type="submit">-></button>
+              </form></div>
+            
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="popup  popup--active popup--authorization" id="authorization">
+        <div class="popup__body">
+          <div class="popup__header">
+            <p class="popup__header-title">Авторизация</p>
+            <button class="popup__header-close">
+              <svg class="popup__header-icon" width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="20.7803" y2="-0.5" transform="matrix(0.710506 0.703691 -0.65218 0.758064 1 1)"></line>
+                <line y1="-0.5" x2="20.8155" y2="-0.5" transform="matrix(0.693335 -0.720616 0.670126 0.742247 1.56787 16)"></line>
+              </svg>
+            </button>
+          </div>
+          <p class="popup__text">Почта:</p>
+          <div class="popup__wrapper">
+            <form class="popup__bottom" onsubmit="return false">
+              <div class="popup__bottom-wrapper">
+                <input type="email" id="authorization_input" name="email" class="popup__input" placeholder="Введите почту">
+              </div>
+
+              <button class="popup__submit" type="submit">Получить код</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="popup   popup--verification" id="verification">
+        <div class="popup__body">
+          <div class="popup__header">
+            <p class="popup__header-title">Подтверждение</p>
+            <button class="popup__header-close">
+              <svg class="popup__header-icon" width="17" height="16" viewbox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="20.7803" y2="-0.5" transform="matrix(0.710506 0.703691 -0.65218 0.758064 1 1)"></line>
+                <line y1="-0.5" x2="20.8155" y2="-0.5" transform="matrix(0.693335 -0.720616 0.670126 0.742247 1.56787 16)"></line>
+              </svg>
+            </button>
+          </div>
+          <p class="popup__text">код:</p>
+          <div class="popup__wrapper">
+            <form class="popup__bottom" onsubmit="return false">
+              <div class="popup__bottom-wrapper">
+                <input type="text" class="popup__input" placeholder="Введите код">
+              </div>
+
+              <button class="popup__submit" type="submit">Войти</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <template id="tmpl">
+      <li class="dialog__personal_message dialog__message dialog__send_message">
+        <p class="dialog__message-text">Я:</p>
+        <span class="dialog__message-time"></span>
+      </li>
+    </template>
+
+    <script src="/index.fbb3188c.js" defer=""></script>
+  </body>
+</html>
