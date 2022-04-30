@@ -179,6 +179,9 @@ input {
   align-items: center;
   margin-bottom: 16px;
 }
+.popup__wrapper {
+    margin-bottom: 20px;
+}
 .popup__header-title {
   opacity: 100%;
 }

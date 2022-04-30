@@ -129,23 +129,44 @@
             </button>
           </div>
           <p class="popup__text">Почта:</p>
+
           <div class="popup__wrapper">
             <form class="popup__bottom" onsubmit="return false">
               <div class="popup__bottom-wrapper">
                 <input
                   type="email"
-                  id="authorization_input"
+                  id="authorization_mail_input"
                   name="email"
                   class="popup__input"
                   placeholder="Введите почту"
                 />
               </div>
 
-              <button class="popup__submit" type="submit">Получить код</button>
+              <button class="popup__submit" id="authorization_mail" type="submit">Получить код</button>
             </form>
           </div>
+
+          <div class="popup__wrapper">
+            <form class="popup__bottom" onsubmit="return false">
+              <div class="popup__bottom-wrapper">
+                <input
+                  type="text"
+                  id="authorization_code_input"
+                  class="popup__input"
+                  placeholder="Введите код"
+                />
+              </div>
+
+              <button class="popup__submit" id="authorization_code" type="submit">Войти</button>
+            </form>
+          </div>
+
+
         </div>
       </div>
+
+
+      
 
       <div class="popup   popup--verification" id="verification">
         <div class="popup__body">

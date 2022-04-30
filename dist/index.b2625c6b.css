@@ -173,6 +173,10 @@ input {
   display: flex;
 }
 
+.popup__wrapper {
+  margin-bottom: 20px;
+}
+
 .popup__header-title {
   opacity: 1;
 }
