@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import { parseISO } from "date-fns/esm";
 import Cookies from "js-cookie";
 
 export const UI_ELEMENTS = {
@@ -29,6 +30,8 @@ UI_ELEMENTS.DIALOG_SUBMIT.addEventListener("click", function () {
     UI_ELEMENTS.MESSAGE_LIST.append(renderMessage(messageText));
   }
 });
+
+renderHistory();
 getCode();
 enterCode();
 
@@ -40,26 +43,82 @@ function getCode() {
         email: userMail,
       };
       const json = email ? JSON.stringify(email) : false;
+      loadMail(json);
     } else {
       alert("введите корректную почту");
     }
   });
 }
+
 function enterCode() {
-  UI_ELEMENTS.AUTHORIZATION_CODE_SUBMIT.addEventListener("click", function () {
-    const userCode = UI_ELEMENTS.AUTHORIZATION_CODE_INPUT.value;
-    if (userCode) {
-      Cookies.set("token", userCode);
-      const token = Cookies.get("token");
-      fetch(URL, {
-        method: "PATCH",
-        headers: {
-            Authorization: `bearer ${token}`,
-        },
-        body: { name: "Alex" },
-      });
+  UI_ELEMENTS.AUTHORIZATION_CODE_SUBMIT.addEventListener(
+    "click",
+    async function () {
+      const userCode = UI_ELEMENTS.AUTHORIZATION_CODE_INPUT.value;
+      if (userCode) {
+        Cookies.set("token", userCode);
+        const response = await fetch(URL, {
+          method: "PATCH",
+          body: JSON.stringify({ name: "Alex" }),
+          headers: {
+            "Content-type": "application/json;charset=utf-8",
+            Authorization: `bearer ${Cookies.get("token")}`,
+          },
+        });
+        console.log("После ввода кода: " + response);
+        // fetch('https://mighty-cove-31255.herokuapp.com/api/user/me', {
+        //   method: "GET",
+        // //   body: JSON.stringify({ name: "Alex" }),
+        //   headers: {
+        //     "Content-type": "application/json;charset=utf-8",
+        //     Authorization: `bearer ${Cookies.get("token")}`,
+        //   },
+        // });
+      }
     }
-  });
+  );
+}
+
+
+async function renderHistory() {
+  try {
+    const URL = "https://mighty-cove-31255.herokuapp.com/api/messages";
+    const response = await fetch(URL, {
+      method: "GET",
+    });
+    const messages = await response.json();
+
+    for (let i = 0; i < 5; i++) {
+      const text = messages.messages[i].text;
+      const name = messages.messages[i].user.name;
+      const time = messages.messages[i].createdAt;
+      UI_ELEMENTS.MESSAGE_LIST.append(renderMessage(text, name, time));
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+socketConnect();
+function socketConnect() {
+  const url = `ws://mighty-cove-31255.herokuapp.com/websockets?${Cookies.get(
+    "token"
+  )}`;
+  const socket = new WebSocket(url);
+
+  socket.onopen = (event) => {
+    console.log("[socket] соединение установлено");
+    socket.send(
+      JSON.stringify({
+        text: "тестовый тест",
+      })
+    );
+  };
+
+  socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    console.log(data);
+  };
 }
 
 async function loadMail(email) {
@@ -73,13 +132,17 @@ async function loadMail(email) {
   return response;
 }
 
-function renderMessage(text) {
+function renderMessage(text, name = "userName", time = new Date()) {
   const message = UI_ELEMENTS.MESSAGE_TEMPLATE.content.cloneNode(true);
   const MESSAGE_UI_ELEMENTS = {
+    PARENT: message.querySelector(".dialog__message"),
     TEXT: message.querySelector(".dialog__message-text"),
     TIME: message.querySelector(".dialog__message-time"),
+    NAME: message.querySelector(".dialog__message-name"),
   };
+  MESSAGE_UI_ELEMENTS.NAME.textContent = `${name}: `;
   MESSAGE_UI_ELEMENTS.TEXT.textContent += text;
-  MESSAGE_UI_ELEMENTS.TIME.textContent = format(new Date(), "hh:mm");
+  MESSAGE_UI_ELEMENTS.TIME.textContent = format(parseISO(time), "HH:mm");
+  MESSAGE_UI_ELEMENTS.PARENT.classList.add("dialog__someone_message");
   return message;
 }
