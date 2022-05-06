@@ -1,4 +1,4 @@
-13127
+13130
 71D:\Save\Projects\Strada\chat\node_modules\eslint\lib\rules\max-lines.js121436361000000000 0
 99D:\Save\Projects\Strada\chat\node_modules\terser\node_modules\source-map\lib\source-map-consumer.js131867981560000000 0
 84D:\Save\Projects\Strada\chat\node_modules\date-fns\fp\differenceInYears\package.json121436361000000000 0
@@ -66,7 +66,7 @@
 89D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\secondsToMilliseconds\package.json121436361000000000 0
 60D:\Save\Projects\Strada\chat\node_modules\htmlnano\docs\docs132955092788208492 1
 32D:\Save\Projects\Strada\chat\css132955083716131876 1
-33D:\Save\Projects\Strada\chat\dist132959529467194057 1
+33D:\Save\Projects\Strada\chat\dist132963036091734302 1
 93D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\locale\te\_lib\formatRelative\index.js121436361000000000 0
 99D:\Save\Projects\Strada\chat\node_modules\date-fns\fp\roundToNearestMinutesWithOptions\package.json121436361000000000 0
 59D:\Save\Projects\Strada\chat\node_modules\nan\nan_private.h131637928500000000 0
@@ -126,7 +126,7 @@
 67D:\Save\Projects\Strada\chat\node_modules\eslint-utils\node_modules132955093172719174 1
 85D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\secondsToMinutes\index.js.flow121436361000000000 0
 54D:\Save\Projects\Strada\chat\node_modules\yaml\browser132955092773443301 1
-31D:\Save\Projects\Strada\chat\js132955216755590950 1
+31D:\Save\Projects\Strada\chat\js132963036015762456 1
 51D:\Save\Projects\Strada\chat\node_modules\acorn-jsx132955093185735981 1
 74D:\Save\Projects\Strada\chat\node_modules\date-fns\locale\zh-HK\index.d.ts121436361000000000 0
 54D:\Save\Projects\Strada\chat\node_modules\svgo\plugins132955092795699303 1
@@ -1019,6 +1019,7 @@
 62D:\Save\Projects\Strada\chat\node_modules\date-fns\endOfSecond132955093726023258 1
 57D:\Save\Projects\Strada\chat\node_modules\posthtml-render132955092961778824 1
 72D:\Save\Projects\Strada\chat\node_modules\regenerator-runtime\runtime.js121436361000000000 0
+41D:\Save\Projects\Strada\chat\js\socket.js132963030200668280 0
 52D:\Save\Projects\Strada\chat\node_modules\prelude-ls132955093185815974 1
 64D:\Save\Projects\Strada\chat\node_modules\import-fresh\readme.md121436361000000000 0
 65D:\Save\Projects\Strada\chat\node_modules\prelude-ls\package.json132955093174099278 0
@@ -9129,7 +9130,7 @@
 76D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\startOfDay\index.d.ts121436361000000000 0
 71D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\setYear\index.js121436361000000000 0
 80D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\setWeekYear\index.js.flow121436361000000000 0
-39D:\Save\Projects\Strada\chat\js\view.js132959529464583867 0
+39D:\Save\Projects\Strada\chat\js\view.js132963034207605395 0
 74D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\setSeconds\index.js121436361000000000 0
 87D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\fp\isMatchWithOptions\index.d.ts121436361000000000 0
 69D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\fp\addQuarters132955093730996472 1
@@ -9858,7 +9859,7 @@
 93D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\locale\eu\_lib\formatRelative\index.js121436361000000000 0
 99D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\fp\eachDayOfIntervalWithOptions\package.json121436361000000000 0
 77D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\locale\et\package.json121436361000000000 0
-55D:\Save\Projects\Strada\chat\dist\index.fbb3188c.js.map132959529467164060 0
+55D:\Save\Projects\Strada\chat\dist\index.fbb3188c.js.map132963036091714304 0
 76D:\Save\Projects\Strada\chat\node_modules\@parcel\core\lib\PackagerRunner.js121436361000000000 0
 61D:\Save\Projects\Strada\chat\node_modules\css-tree\lib\syntax132955092798859641 1
 69D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\locale\et\_lib132955093551692735 1
@@ -10123,7 +10124,7 @@
 70D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\isPast\index.js121436361000000000 0
 86D:\Save\Projects\Strada\chat\node_modules\caniuse-lite\data\features\css-namespaces.js121436361000000000 0
 76D:\Save\Projects\Strada\chat\node_modules\date-fns\esm\isLeapYear\index.d.ts121436361000000000 0
-44D:\Save\Projects\Strada\chat\dist\index.html132959528106391678 0
+44D:\Save\Projects\Strada\chat\dist\index.html132963036091664291 0
 129D:\Save\Projects\Strada\chat\node_modules\@parcel\node-resolver-core\test\fixture\node_modules\package-browser-alias\package.json121436361000000000 0
 87D:\Save\Projects\Strada\chat\node_modules\@parcel\packager-js\src\GlobalOutputFormat.js121436361000000000 0
 86D:\Save\Projects\Strada\chat\node_modules\@parcel\runtime-js\src\helpers\bundle-url.js121436361000000000 0
@@ -12390,7 +12391,7 @@
 77D:\Save\Projects\Strada\chat\node_modules\@swc\helpers\src\_inherits_loose.js132902623550000000 0
 90D:\Save\Projects\Strada\chat\node_modules\@swc\helpers\src\_is_native_reflect_construct.js132902623550000000 0
 86D:\Save\Projects\Strada\chat\node_modules\@swc\helpers\src\_iterable_to_array_limit.js132902623550000000 0
-56D:\Save\Projects\Strada\chat\dist\index.b2625c6b.css.map132959528106601699 0
+56D:\Save\Projects\Strada\chat\dist\index.b2625c6b.css.map132963036091564287 0
 76D:\Save\Projects\Strada\chat\node_modules\@swc\helpers\src\_object_spread.js132902623550000000 0
 90D:\Save\Projects\Strada\chat\node_modules\@swc\helpers\src\_possible_constructor_return.js132902623550000000 0
 78D:\Save\Projects\Strada\chat\node_modules\@swc\helpers\src\_read_only_error.js132902623550000000 0
@@ -12666,7 +12667,6 @@
 91D:\Save\Projects\Strada\chat\node_modules\@parcel\source-map\parcel_sourcemap_node\index.js121436361000000000 0
 86D:\Save\Projects\Strada\chat\node_modules\@parcel\source-map\parcel_sourcemap_node\src132955092792989074 1
 93D:\Save\Projects\Strada\chat\node_modules\@parcel\source-map\parcel_sourcemap_node\src\lib.rs121436361000000000 0
-40D:\Save\Projects\Strada\chat\js\popup.js132955241822146568 0
 116D:\Save\Projects\Strada\chat\node_modules\@parcel\source-map\parcel_sourcemap_node\artifacts\index.darwin-arm64.node121436361000000000 0
 119D:\Save\Projects\Strada\chat\node_modules\@parcel\source-map\parcel_sourcemap_node\artifacts\index.linux-arm64-gnu.node121436361000000000 0
 120D:\Save\Projects\Strada\chat\node_modules\@parcel\source-map\parcel_sourcemap_node\artifacts\index.linux-arm64-musl.node121436361000000000 0
@@ -12963,6 +12963,7 @@
 111D:\Save\Projects\Strada\chat\node_modules\@parcel\core\test\fixtures\invalid-target-source-missing\package.json121436361000000000 0
 105D:\Save\Projects\Strada\chat\node_modules\@parcel\core\test\fixtures\invalid-source-not-file\package.json121436361000000000 0
 105D:\Save\Projects\Strada\chat\node_modules\@parcel\core\test\fixtures\invalid-source-not-file\src\index.js121436361000000000 0
+38D:\Save\Projects\Strada\chat\js\api.js132963035487616671 0
 96D:\Save\Projects\Strada\chat\node_modules\@parcel\core\test\fixtures\custom-targets\package.json121436361000000000 0
 104D:\Save\Projects\Strada\chat\node_modules\@parcel\core\test\fixtures\custom-format-mismatch\package.json121436361000000000 0
 105D:\Save\Projects\Strada\chat\node_modules\@parcel\core\test\fixtures\custom-format-infer-ext\package.json121436361000000000 0
@@ -13122,7 +13123,9 @@
 57D:\Save\Projects\Strada\chat\node_modules\.bin\semver.ps1132955092968557674 0
 55D:\Save\Projects\Strada\chat\node_modules\.bin\svgo.ps1132955092968697672 0
 53D:\Save\Projects\Strada\chat\node_modules\.bin\terser132955092968857695 0
-39D:\Save\Projects\Strada\chat\js\main.js132956007395432270 0
+39D:\Save\Projects\Strada\chat\js\main.js132963036089304151 0
+41D:\Save\Projects\Strada\chat\js\popups.js132963035912601066 0
+40D:\Save\Projects\Strada\chat\js\utils.js132962999827706725 0
 57D:\Save\Projects\Strada\chat\dist\close-icon.f30774d8.svg132955200265730308 0
-52D:\Save\Projects\Strada\chat\dist\index.b2625c6b.css132959528106601699 0
-51D:\Save\Projects\Strada\chat\dist\index.fbb3188c.js132959529466964041 0
+52D:\Save\Projects\Strada\chat\dist\index.b2625c6b.css132963025683328403 0
+51D:\Save\Projects\Strada\chat\dist\index.fbb3188c.js132963036091694297 0

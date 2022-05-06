@@ -1,4 +1,5 @@
-import { sendMessage, getCode, enterCode, sendMessage } from "./main.js";
+import { getCode, enterCode } from "./api.js";
+import { sendMessage } from "./socket.js";
 import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
 
