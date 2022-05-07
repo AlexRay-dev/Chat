@@ -530,35 +530,30 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "URL", ()=>URL
 );
-parcelHelpers.export(exports, "getToken", ()=>getToken
-);
 parcelHelpers.export(exports, "socket", ()=>socket
 );
 var _viewJs = require("./view.js");
-var _apiJs = require("./api.js");
+var _utilsJs = require("./utils.js");
 var _popupsJs = require("./popups.js");
 var _socketJs = require("./socket.js");
-var _jsCookie = require("js-cookie");
-var _jsCookieDefault = parcelHelpers.interopDefault(_jsCookie);
 const URL = "mighty-cove-31255.herokuapp.com";
-const getToken = ()=>{
-    return _jsCookieDefault.default.get("token");
-};
-const socket = new WebSocket(`ws://${URL}/websockets?${getToken()}`);
+const socket = new WebSocket(`ws://${URL}/websockets?${_utilsJs.getToken()}`);
 _popupsJs.popupsInit();
 chatInit();
-async function chatInit() {
-    await _apiJs.renderHistory();
+function chatInit() {
+    _viewJs.renderHistory();
     _socketJs.socketConnect();
     _viewJs.sendMessageUI();
 }
 
-},{"./view.js":"2GA9o","js-cookie":"c8bBu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./socket.js":"6PqiQ","./api.js":"6yDOL","./popups.js":"etNx4"}],"2GA9o":[function(require,module,exports) {
+},{"./view.js":"2GA9o","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./socket.js":"6PqiQ","./popups.js":"etNx4","./utils.js":"eYK4L"}],"2GA9o":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "UI_ELEMENTS", ()=>UI_ELEMENTS
 );
 parcelHelpers.export(exports, "sendMessageUI", ()=>sendMessageUI
+);
+parcelHelpers.export(exports, "renderHistory", ()=>renderHistory
 );
 parcelHelpers.export(exports, "renderMessage", ()=>renderMessage
 );
@@ -566,10 +561,12 @@ var _apiJs = require("./api.js");
 var _socketJs = require("./socket.js");
 var _dateFns = require("date-fns");
 var _esm = require("date-fns/esm");
+var _utilsJs = require("./utils.js");
 const UI_ELEMENTS = {
     DIALOG_INPUT: document.querySelector(".dialog__message-input"),
     DIALOG_SUBMIT: document.querySelector(".dialog__message-submit"),
     MESSAGE_TEMPLATE: document.querySelector("#tmpl"),
+    MESSAGE_WRAPPER: document.querySelector(".dialog__message-box"),
     MESSAGE_LIST: document.querySelector(".dialog__message-list"),
     SETTINGS_OPEN: document.querySelector(".dialog__btn-settings"),
     SETTINGS: document.querySelector("#settings"),
@@ -581,6 +578,18 @@ const UI_ELEMENTS = {
     POPUP_CLOSE: document.querySelectorAll(".popup__header-close"),
     POPUP_BODY: document.querySelectorAll(".popup")
 };
+UI_ELEMENTS.AUTHORIZATION_MAIL_SUBMIT.addEventListener("click", _apiJs.getCode);
+UI_ELEMENTS.AUTHORIZATION_CODE_SUBMIT.addEventListener("click", _apiJs.enterCode);
+UI_ELEMENTS.MESSAGE_WRAPPER.addEventListener("scroll", function() {
+    if (this.scrollTop === 0) {
+        console.log(true);
+        renderHistory("withoutBottomScroll");
+    }
+});
+function scrollToBottom() {
+    const chatWrapper = UI_ELEMENTS.MESSAGE_WRAPPER;
+    chatWrapper.scrollTop = chatWrapper.scrollHeight;
+}
 function sendMessageUI() {
     UI_ELEMENTS.DIALOG_SUBMIT.addEventListener("click", function() {
         const messageText = UI_ELEMENTS.DIALOG_INPUT.value;
@@ -589,9 +598,21 @@ function sendMessageUI() {
         if (messageText) _socketJs.sendMessage(messageText);
     });
 }
-UI_ELEMENTS.AUTHORIZATION_MAIL_SUBMIT.addEventListener("click", _apiJs.getCode);
-UI_ELEMENTS.AUTHORIZATION_CODE_SUBMIT.addEventListener("click", _apiJs.enterCode);
-function renderMessage(text, name = "userName", time) {
+function renderHistory(scroll) {
+    const history = _utilsJs.getValidJson("parse", localStorage.getItem("history"));
+    const lastMessage = history.length;
+    const count = 10;
+    for(let i = count; i > 0; i--){
+        const text = history.at(-1).text;
+        const name = history.at(-1).user.name;
+        const time = history.at(-1).createdAt;
+        renderMessage(text, name, time, scroll);
+        history.pop();
+    }
+    localStorage.setItem("history", _utilsJs.getValidJson("stringify", history));
+    console.log("подрузка истории");
+}
+function renderMessage(text, name = "userName", time, scroll) {
     const message = UI_ELEMENTS.MESSAGE_TEMPLATE.content.cloneNode(true);
     const MESSAGE_UI_ELEMENTS = {
         PARENT: message.querySelector(".dialog__message"),
@@ -603,10 +624,12 @@ function renderMessage(text, name = "userName", time) {
     MESSAGE_UI_ELEMENTS.TEXT.textContent += text;
     MESSAGE_UI_ELEMENTS.TIME.textContent = _dateFns.format(_esm.parseISO(time), "HH:mm");
     MESSAGE_UI_ELEMENTS.PARENT.classList.add("dialog__someone_message");
-    UI_ELEMENTS.MESSAGE_LIST.append(message);
+    UI_ELEMENTS.MESSAGE_LIST.prepend(message);
+    console.log("сообщение");
+    if (!scroll) scrollToBottom();
 }
 
-},{"date-fns":"9yHCA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","date-fns/esm":"9yHCA","./socket.js":"6PqiQ","./api.js":"6yDOL"}],"9yHCA":[function(require,module,exports) {
+},{"date-fns":"9yHCA","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","date-fns/esm":"9yHCA","./socket.js":"6PqiQ","./api.js":"6yDOL","./utils.js":"eYK4L"}],"9yHCA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 // This file is generated automatically by `scripts/build/indices.js`. Please, don't change it.
@@ -3843,14 +3866,6 @@ var _utilsJs = require("./utils.js");
 var _viewJs = require("./view.js");
 function socketConnect() {
     console.log("[socket] первичное соединение установлено");
-    try {
-        _mainJs.socket.onmessage = function(event) {
-            const data = _utilsJs.getValidJson("parse", event.data);
-            _viewJs.renderMessage(data.text, data.user.name, data.createdAt);
-        };
-    } catch (err) {
-        alert(err);
-    }
 }
 function sendMessage(text) {
     console.log("[socket] отправка сообщения");
@@ -3870,6 +3885,10 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getValidJson", ()=>getValidJson
 );
+parcelHelpers.export(exports, "getToken", ()=>getToken
+);
+var _jsCookie = require("js-cookie");
+var _jsCookieDefault = parcelHelpers.interopDefault(_jsCookie);
 function getValidJson(method, value) {
     try {
         switch(method){
@@ -3884,91 +3903,11 @@ function getValidJson(method, value) {
         alert(err);
     }
 }
+const getToken = ()=>{
+    return _jsCookieDefault.default.get("token");
+};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6yDOL":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getCode", ()=>getCode
-);
-parcelHelpers.export(exports, "enterCode", ()=>enterCode
-);
-parcelHelpers.export(exports, "renderHistory", ()=>renderHistory
-);
-var _mainJs = require("./main.js");
-var _viewJs = require("./view.js");
-var _utilsJs = require("./utils.js");
-const contentType = "application/json;charset=utf-8";
-function getCode() {
-    const userMail = UI_ELEMENTS.AUTHORIZATION_MAIL_INPUT.value;
-    if (userMail) {
-        const email = {
-            email: userMail
-        };
-        const json = _utilsJs.getValidJson("stringify", email);
-        loadMail(json);
-    } else alert("введите корректную почту");
-}
-async function enterCode() {
-    const userCode = UI_ELEMENTS.AUTHORIZATION_CODE_INPUT.value;
-    if (userCode) {
-        Cookies.set("token", userCode);
-        const name = {
-            name: "Alex"
-        };
-        const response = await fetch(`https://${_mainJs.URL}/api/user`, {
-            method: "PATCH",
-            body: _utilsJs.getValidJson("stringify", name),
-            headers: {
-                "Content-type": contentType,
-                Authorization: `bearer ${_mainJs.getToken()}`
-            }
-        });
-        console.log("После ввода кода: " + response);
-    // fetch('https://mighty-cove-31255.herokuapp.com/api/user/me', {
-    //   method: "GET",
-    // //   body: JSON.stringify({ name: "Alex" }),
-    //   headers: {
-    //     "Content-type": "application/json;charset=utf-8",
-    //     Authorization: `bearer ${Cookies.get("token")}`,
-    //   },
-    // });
-    }
-}
-async function renderHistory() {
-    try {
-        const response = await fetch(`https://${_mainJs.URL}/api/messages`, {
-            method: "GET"
-        });
-        const json = await response.json();
-        const history = json.messages;
-        const lastMessage = history.length;
-        const count = 10;
-        for(let i = lastMessage - count; i < lastMessage; i++){
-            const text = history[i].text;
-            const name = history[i].user.name;
-            const time = history[i].createdAt;
-            _viewJs.renderMessage(text, name, time);
-        }
-        console.log("[history] история сообщений загружена");
-    } catch (err) {
-        alert(err);
-    }
-}
-async function loadMail(email) {
-    try {
-        await fetch(`https://${_mainJs.URL}/api/user`, {
-            method: "POST",
-            headers: {
-                "Content-type": contentType
-            },
-            body: email
-        });
-    } catch (err) {
-        alert(err);
-    }
-}
-
-},{"./utils.js":"eYK4L","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./main.js":"bDbGG","./view.js":"2GA9o"}],"c8bBu":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","js-cookie":"c8bBu"}],"c8bBu":[function(require,module,exports) {
 (function(global, factory) {
     module.exports = factory();
 })(this, function() {
@@ -4058,7 +3997,81 @@ async function loadMail(email) {
     /* eslint-enable no-var */ return api;
 });
 
-},{}],"etNx4":[function(require,module,exports) {
+},{}],"6yDOL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getCode", ()=>getCode
+);
+parcelHelpers.export(exports, "enterCode", ()=>enterCode
+);
+var _mainJs = require("./main.js");
+var _utilsJs = require("./utils.js");
+const contentType = "application/json;charset=utf-8";
+function getCode() {
+    const userMail = UI_ELEMENTS.AUTHORIZATION_MAIL_INPUT.value;
+    if (userMail) {
+        const email = {
+            email: userMail
+        };
+        const json = _utilsJs.getValidJson("stringify", email);
+        loadMail(json);
+    } else alert("введите корректную почту");
+}
+async function enterCode() {
+    const userCode = UI_ELEMENTS.AUTHORIZATION_CODE_INPUT.value;
+    if (userCode) {
+        Cookies.set("token", userCode);
+        const name = {
+            name: "Alex"
+        };
+        const response = await fetch(`https://${_mainJs.URL}/api/user`, {
+            method: "PATCH",
+            body: _utilsJs.getValidJson("stringify", name),
+            headers: {
+                "Content-type": contentType,
+                Authorization: `bearer ${_utilsJs.getToken()}`
+            }
+        });
+        console.log("После ввода кода: " + response);
+    // fetch('https://mighty-cove-31255.herokuapp.com/api/user/me', {
+    //   method: "GET",
+    // //   body: JSON.stringify({ name: "Alex" }),
+    //   headers: {
+    //     "Content-type": "application/json;charset=utf-8",
+    //     Authorization: `bearer ${Cookies.get("token")}`,
+    //   },
+    // });
+    }
+}
+getHistory();
+async function getHistory() {
+    try {
+        const response = await fetch(`https://${_mainJs.URL}/api/messages`, {
+            method: "GET"
+        });
+        const json = await response.json();
+        const history = json.messages;
+        localStorage.setItem("history", _utilsJs.getValidJson("stringify", history));
+        console.log("[history] история сообщений загружена");
+    } catch (error) {
+        alert(error);
+    }
+}
+async function loadMail(email) {
+    try {
+        await fetch(`https://${_mainJs.URL}/api/user`, {
+            method: "POST",
+            headers: {
+                "Content-type": contentType
+            },
+            body: email
+        });
+    } catch (err) {
+        alert(err);
+    }
+}
+
+},{"./utils.js":"eYK4L","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./main.js":"bDbGG"}],"etNx4":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "popupsInit", ()=>popupsInit

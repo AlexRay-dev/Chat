@@ -1,6 +1,5 @@
-import { URL, getToken } from "./main.js";
-import { renderMessage } from "./view.js";
-import { getValidJson } from "./utils.js";
+import { URL } from "./main.js";
+import { getValidJson, getToken } from "./utils.js";
 
 const contentType = "application/json;charset=utf-8";
 
@@ -43,26 +42,20 @@ export async function enterCode() {
     // });
   }
 }
+getHistory();
 
-export async function renderHistory() {
+async function getHistory() {
   try {
     const response = await fetch(`https://${URL}/api/messages`, {
       method: "GET",
     });
     const json = await response.json();
     const history = json.messages;
-    const lastMessage = history.length;
-    const count = 10;
+    localStorage.setItem("history", getValidJson("stringify", history));
 
-    for (let i = lastMessage - count; i < lastMessage; i++) {
-      const text = history[i].text;
-      const name = history[i].user.name;
-      const time = history[i].createdAt;
-      renderMessage(text, name, time);
-    }
     console.log("[history] история сообщений загружена");
-  } catch (err) {
-    alert(err);
+  } catch (error) {
+    alert(error);
   }
 }
 

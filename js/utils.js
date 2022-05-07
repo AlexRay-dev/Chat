@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export function getValidJson(method, value) {
   try {
     switch (method) {
@@ -12,3 +14,7 @@ export function getValidJson(method, value) {
     alert(err);
   }
 }
+
+export const getToken = () => {
+  return Cookies.get("token");
+};

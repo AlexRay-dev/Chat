@@ -5,10 +5,11 @@ import { renderMessage } from "./view.js";
 export function socketConnect() {
   console.log("[socket] первичное соединение установлено");
   try {
-    socket.onmessage = function (event) {
-      const data = getValidJson("parse", event.data);
-      renderMessage(data.text, data.user.name, data.createdAt);
-    };
+    // socket.onmessage = function (event) {
+    //     console.log(event.data);
+    //   const data = getValidJson("parse", event.data);
+    //   renderMessage(data.text, data.user.name, data.createdAt);
+    // };
   } catch (err) {
     alert(err);
   }

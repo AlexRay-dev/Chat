@@ -9,7 +9,7 @@
 
 body {
   height: 100vh;
-  background: linear-gradient(45deg, #ffa799, #c5dde8, #fff599);
+  background: gray;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -57,12 +57,11 @@ input {
 
 .dialog__message-box {
   height: 437px;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .dialog__message-list {
   flex-direction: column;
-  justify-content: flex-end;
   display: flex;
 }
 

@@ -2,11 +2,13 @@ import { getCode, enterCode } from "./api.js";
 import { sendMessage } from "./socket.js";
 import { format } from "date-fns";
 import { parseISO } from "date-fns/esm";
+import { getValidJson } from "./utils.js";
 
 export const UI_ELEMENTS = {
   DIALOG_INPUT: document.querySelector(".dialog__message-input"),
   DIALOG_SUBMIT: document.querySelector(".dialog__message-submit"),
   MESSAGE_TEMPLATE: document.querySelector("#tmpl"),
+  MESSAGE_WRAPPER: document.querySelector(".dialog__message-box"),
   MESSAGE_LIST: document.querySelector(".dialog__message-list"),
 
   SETTINGS_OPEN: document.querySelector(".dialog__btn-settings"),
@@ -21,6 +23,21 @@ export const UI_ELEMENTS = {
   POPUP_BODY: document.querySelectorAll(".popup"),
 };
 
+UI_ELEMENTS.AUTHORIZATION_MAIL_SUBMIT.addEventListener("click", getCode);
+UI_ELEMENTS.AUTHORIZATION_CODE_SUBMIT.addEventListener("click", enterCode);
+
+UI_ELEMENTS.MESSAGE_WRAPPER.addEventListener("scroll", function () {
+  if (this.scrollTop === 0) {
+    console.log(true);
+    renderHistory("withoutBottomScroll");
+  }
+});
+
+function scrollToBottom() {
+  const chatWrapper = UI_ELEMENTS.MESSAGE_WRAPPER;
+  chatWrapper.scrollTop = chatWrapper.scrollHeight;
+}
+
 export function sendMessageUI() {
   UI_ELEMENTS.DIALOG_SUBMIT.addEventListener("click", function () {
     const messageText = UI_ELEMENTS.DIALOG_INPUT.value;
@@ -32,10 +49,23 @@ export function sendMessageUI() {
   });
 }
 
-UI_ELEMENTS.AUTHORIZATION_MAIL_SUBMIT.addEventListener("click", getCode);
-UI_ELEMENTS.AUTHORIZATION_CODE_SUBMIT.addEventListener("click", enterCode);
+export function renderHistory(scroll) {
+  const history = getValidJson("parse", localStorage.getItem("history"));
+  const lastMessage = history.length;
+  const count = 10;
 
-export function renderMessage(text, name = "userName", time) {
+  for (let i = count; i > 0; i--) {
+    const text = history.at(-1).text;
+    const name = history.at(-1).user.name;
+    const time = history.at(-1).createdAt;
+    renderMessage(text, name, time, scroll);
+    history.pop();
+  }
+  localStorage.setItem("history", getValidJson("stringify", history));
+  console.log("подрузка истории");
+}
+
+export function renderMessage(text, name = "userName", time, scroll) {
   const message = UI_ELEMENTS.MESSAGE_TEMPLATE.content.cloneNode(true);
   const MESSAGE_UI_ELEMENTS = {
     PARENT: message.querySelector(".dialog__message"),
@@ -47,5 +77,9 @@ export function renderMessage(text, name = "userName", time) {
   MESSAGE_UI_ELEMENTS.TEXT.textContent += text;
   MESSAGE_UI_ELEMENTS.TIME.textContent = format(parseISO(time), "HH:mm");
   MESSAGE_UI_ELEMENTS.PARENT.classList.add("dialog__someone_message");
-  UI_ELEMENTS.MESSAGE_LIST.append(message);
+  UI_ELEMENTS.MESSAGE_LIST.prepend(message);
+  console.log("сообщение");
+  if (!scroll) {
+    scrollToBottom();
+  }
 }
